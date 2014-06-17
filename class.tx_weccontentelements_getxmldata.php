@@ -63,7 +63,7 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 	function getFlexFormValueFromSheetArray($sheetArray, $fieldNameArr, $value) {
 		$tempArr = $sheetArray;
 		foreach($fieldNameArr as $k => $v)	{
-			if (t3lib_div::testInt($v))	{
+			if (t3lib_utility_Math::canBeInterpretedAsInteger($v))	{
 				if (is_array($tempArr))	{
 					foreach($tempArr as $index => $values) {
 						if ($index==$v)	{

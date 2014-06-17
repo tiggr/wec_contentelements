@@ -30,7 +30,7 @@ class tx_weccontentelements_lib {
 
 		if ($flexformPath) {
 			$TCA['tt_content']['columns']['pi_flexform']['config']['ds']['*,' . $key] = $flexformPath;
-			if (t3lib_div::int_from_ver(TYPO3_version) >= 4005000) {
+			if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 4005000) {
 				$TCA['tt_content']['types'][$key]['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,
 																	--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header,
 																	--div--;' . $title . ',
@@ -48,7 +48,7 @@ class tx_weccontentelements_lib {
 				);
 			}
 		} else {
-			if (t3lib_div::int_from_ver(TYPO3_version) >= 4005000) {
+			if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 4005000) {
 				$TCA['tt_content']['types'][$key]['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,
 																	--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header,
 																	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,
