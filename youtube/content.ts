@@ -11,5 +11,14 @@ tt_content.youtube {
 			<embed src="http://www.youtube-nocookie.com/v/{t3datastructure : pi_flexform->youtubeID}" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="{t3datastructure : pi_flexform->width}" height="{t3datastructure : pi_flexform->height}"></embed>
 		</object>
 	)
+
+	20.value (
+		<iframe width="{t3datastructure : pi_flexform->width}"
+				height="{t3datastructure : pi_flexform->height}"
+				src="//www.youtube.com/embed/{t3datastructure : pi_flexform->youtubeID}"
+				frameborder="0"
+				allowfullscreen>
+		</iframe>
+	)
 	20.insertData = 1
 }
