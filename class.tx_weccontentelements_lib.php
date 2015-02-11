@@ -4,7 +4,6 @@ class tx_weccontentelements_lib {
 
 	public function addContentElement($extensionKey, $key, $flexformPath = '', $type = '', $title = '', $description = '', $icon = '', $wizardIcon = '') {
 		global $TCA;
-		t3lib_div::loadTCA('tt_content');
 
 			// Set defaults for title, description, icons, and content element type.
 		$locallangPath = 'LLL:EXT:' . $extensionKey . '/' . $key . '/locallang.xml:tt_content.' . $key . '.';
