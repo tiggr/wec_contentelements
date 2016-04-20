@@ -17,19 +17,19 @@ class tx_weccontentelements_lib {
 			$icon = 'EXT:' . $extensionKey . '/' . $key . '/icon.gif';
 		}
 		if (!$wizardIcon) {
-			$wizardIcon = t3lib_extMgm::extRelPath($extensionKey) . $key . '/wizard-icon.gif';
+			$wizardIcon = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($extensionKey) . $key . '/wizard-icon.gif';
 		}
 		if (!$type) {
 			$type = 'special';
 		}
-		if (!$flexformPath && @file_exists(t3lib_extMgm::extPath($extensionKey) . $key . '/flexform.xml')) {
+		if (!$flexformPath && @file_exists(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . $key . '/flexform.xml')) {
 			$flexformPath = 'FILE:EXT:' . $extensionKey . '/' . $key . '/flexform.xml';
 		}
 
 
 		if ($flexformPath) {
 			$TCA['tt_content']['columns']['pi_flexform']['config']['ds']['*,' . $key] = $flexformPath;
-			if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 4005000) {
+			if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 4005000) {
 				$TCA['tt_content']['types'][$key]['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,
 																	--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header,
 																	--div--;' . $title . ',
@@ -47,7 +47,7 @@ class tx_weccontentelements_lib {
 				);
 			}
 		} else {
-			if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 4005000) {
+			if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 4005000) {
 				$TCA['tt_content']['types'][$key]['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,
 																	--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header,
 																	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,
@@ -64,14 +64,14 @@ class tx_weccontentelements_lib {
 			}
 		}
 
-		t3lib_extMgm::addPlugin(array(
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(array(
 			$title,
 			$key,
 			$icon
 		), 'CType');
 
 
-		$TSConfig = 
+		$TSConfig =
 			'wizards.newContentElement.wizardItems.' . $type . ' {
 				elements {
 					' . $key . ' {
@@ -86,7 +86,7 @@ class tx_weccontentelements_lib {
 				show := addToList(' . $key .')
 			}';
 
-		t3lib_extMgm::addPageTSConfig(
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
 			'mod.' . $TSConfig . chr(10) .
 			'templavoila.' . $TSConfig . chr(10)
 		);
@@ -94,13 +94,13 @@ class tx_weccontentelements_lib {
 
 	public function addTyposcript($extensionKey, $key, $typoScriptPath = '') {
 		if (!$typoScriptPath) {
-			$typoScriptPath = t3lib_extMgm::extPath($extensionKey) . $key . '/content.ts';
+			$typoScriptPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . $key . '/content.ts';
 		}
 
 		$type = 'CType';
-		$typoScriptContent = t3lib_div::getURL($typoScriptPath);
+#TODO		$typoScriptContent = t3lib_div::getURL($typoScriptPath);
 		if ($typoScriptContent) {
-			t3lib_extMgm::addTypoScript($key, 'setup', '
+			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript($key, 'setup', '
 			# Setting ' . $key . ' TypoScript
 			' . $typoScriptContent . '
 			', 43);
@@ -119,7 +119,7 @@ class tx_weccontentelements_lib {
 	 */
 	public function addFluid($extensionKey, $key, $file='content.html', $partialRootPath='Partials', $layoutRootPath='Layouts') {
 		// Loop over all the flexform variables, converting them into TypoScript cObjects.
-		$flexformVariables = self::getFlexformFieldsAsCObjects(t3lib_extMgm::extPath($extensionKey) . '/' . $key . '/flexform.xml');
+		$flexformVariables = self::getFlexformFieldsAsCObjects(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . '/' . $key . '/flexform.xml');
 
 		$typoScriptContent = '
 			tt_content.' . $key . ' = COA
@@ -139,13 +139,13 @@ class tx_weccontentelements_lib {
 		';
 
 		// If there's a custom TS file, use it instead of the default.
-		$customTypoScriptPath = t3lib_extMgm::extPath($extensionKey) . $key . '/content.ts';
+		$customTypoScriptPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . $key . '/content.ts';
 		if (file_exists($customTypoScriptPath)) {
 			// Set up Fluid variables as temp.fluidVariables and then append the custom TypoScript.
  			$typoScriptContent .= chr(10) . t3lib_div::getURL($customTypoScriptPath);
 		}
 
-		t3lib_extMgm::addTypoScript($key, 'setup', '
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript($key, 'setup', '
 		# Setting ' . $key . ' TypoScript
 		' . $typoScriptContent . '
 		', 43);
