@@ -98,7 +98,7 @@ class tx_weccontentelements_lib {
 		}
 
 		$type = 'CType';
-#TODO		$typoScriptContent = t3lib_div::getURL($typoScriptPath);
+		$typoScriptContent = \TYPO3\CMS\Core\Utility\GeneralUtility::getURL($typoScriptPath);
 		if ($typoScriptContent) {
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript($key, 'setup', '
 			# Setting ' . $key . ' TypoScript
@@ -142,7 +142,7 @@ class tx_weccontentelements_lib {
 		$customTypoScriptPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . $key . '/content.ts';
 		if (file_exists($customTypoScriptPath)) {
 			// Set up Fluid variables as temp.fluidVariables and then append the custom TypoScript.
- 			$typoScriptContent .= chr(10) . t3lib_div::getURL($customTypoScriptPath);
+ 			$typoScriptContent .= chr(10) . \TYPO3\CMS\Core\Utility\GeneralUtility::getURL($customTypoScriptPath);
 		}
 
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript($key, 'setup', '

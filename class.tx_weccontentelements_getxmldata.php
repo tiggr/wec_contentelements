@@ -20,7 +20,7 @@ class tx_weccontentelements_getXMLData implements \TYPO3\CMS\Frontend\ContentObj
 			switch ($type) {
 				case 't3datastructure':
 					list($fieldName, $path) = explode('->', $key, 2);
-					$flexFormArray = t3lib_div::xml2array($fields[$fieldName]);
+					$flexFormArray = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($fields[$fieldName]);
 					$returnValue = $this->getFlexformValue($flexFormArray, $path);
 					break;
 				case 'flexformsection':
@@ -63,7 +63,7 @@ class tx_weccontentelements_getXMLData implements \TYPO3\CMS\Frontend\ContentObj
 	function getFlexFormValueFromSheetArray($sheetArray, $fieldNameArr, $value) {
 		$tempArr = $sheetArray;
 		foreach($fieldNameArr as $k => $v)	{
-			if (t3lib_utility_Math::canBeInterpretedAsInteger($v))	{
+			if (\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($v))	{
 				if (is_array($tempArr))	{
 					foreach($tempArr as $index => $values) {
 						if ($index==$v)	{
