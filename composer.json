@@ -1,0 +1,24 @@
+{
+  "name": "davitec/wec-contentelements",
+  "type": "typo3-cms-extension",
+  "description": "Provides additional content elements such as a local menu, slideshow, Vimeo video, and YouTube video.",
+  "homepage": "https://webempoweredchurch.org",
+  "license": [
+    "GPL-2.0+"
+  ],
+  "require": {
+    "typo3/cms-core": ">=7.6"
+  },
+  "replace": {
+    "wec_contentelements": "self.version"
+  },
+  "extra": {
+  },
+  "autoload": {
+    "classmap": [
+      "class.tx_weccontentelements_cobj.php",
+      "class.tx_weccontentelements_getxmldata.php",
+      "class.tx_weccontentelements_lib.php"
+    ]
+  }
+}
