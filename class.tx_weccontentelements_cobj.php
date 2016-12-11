@@ -1,7 +1,7 @@
 <?php
 
 
-class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
+class tx_weccontentelements_cobj implements \TYPO3\CMS\Frontend\ContentObject\ContentObjectGetSingleHookInterface {
 	protected $cObj;
 
 	/**
@@ -13,7 +13,7 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 	 * @param	tslib_ccObj	$parentObject: Back reference to parent cObject.
 	 * @return	string
 	 */
-	public function getSingleContentObject($contentObjectName, array $configuration, $TypoScriptKey, tslib_cObj &$parentObject) {
+	public function getSingleContentObject($contentObjectName, array $configuration, $TypoScriptKey, \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer &$parentObject) {
 		$this->cObj =& $parentObject;
 		switch($contentObjectName) {
 			case 'FFSECTION':
